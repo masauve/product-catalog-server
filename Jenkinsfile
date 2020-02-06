@@ -1,6 +1,7 @@
 pipeline {
     agent {
-        label 'quarkus'
+        //label 'quarkus'
+        label 'java11'
     }
     stages {
 
