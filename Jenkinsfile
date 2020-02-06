@@ -9,7 +9,8 @@ pipeline {
                 git branch: 'master', url: 'https://github.com/gnunn1/product-catalog-server'
                 sh "env | grep -i JAVA"
                 sh "echo ${JAVA_TOOL_OPTIONS}"
-                sh "mvn package -Pnative -e -B -DskipTests -Dmaven.javadoc.skip=true -Dmaven.site.skip=true -Dmaven.source.skip=true -Djacoco.skip=true -Dcheckstyle.skip=true -Dfindbugs.skip=true -Dpmd.skip=true -Dfabric8.skip=true"
+                //sh "mvn package -Pnative -e -B -DskipTests -Dmaven.javadoc.skip=true -Dmaven.site.skip=true -Dmaven.source.skip=true -Djacoco.skip=true -Dcheckstyle.skip=true -Dfindbugs.skip=true -Dpmd.skip=true -Dfabric8.skip=true"
+                sh "mvn package -DskipTests -Dmaven.javadoc.skip=true -Dmaven.site.skip=true -Dmaven.source.skip=true -Djacoco.skip=true -Dcheckstyle.skip=true -Dfindbugs.skip=true -Dpmd.skip=true -Dfabric8.skip=true"
             }
         }
         stage('Build Server Image') {
@@ -17,7 +18,8 @@ pipeline {
                 script {
                     openshift.withCluster() {
                         openshift.withProject("product-catalog-dev") {
-                        openshift.selector("bc", "server").startBuild("--from-file=target/product-catalog-1.0-SNAPSHOT-runner", "--wait=true")
+                        //openshift.selector("bc", "server").startBuild("--from-file=target/product-catalog-1.0-SNAPSHOT-runner", "--wait=true")
+                        openshift.selector("bc", "server").startBuild("--from-file=target/product-catalog-1.0-SNAPSHOT-runner.jar", "--wait=true")
                         }
                     }
                 }
