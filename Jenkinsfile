@@ -61,7 +61,7 @@ pipeline {
                 // sh "oc rollout status deployment server -n product-catalog-test"
                 script {
                   openshift.withCluster() {
-                    openshift.withProject('product-catalog-dev') {
+                    openshift.withProject('product-catalog-test') {
                       def dc = openshift.selector("dc", "server")
                       dc.rollout().latest();
                       dc.rollout().status();
