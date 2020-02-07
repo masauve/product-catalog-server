@@ -26,8 +26,17 @@ pipeline {
         }
         stage('Deploy Server Image') {
             steps {
-                sh "oc patch deployment server -n product-catalog-dev -p \"{\\\"spec\\\":{\\\"template\\\":{\\\"metadata\\\":{\\\"labels\\\":{\\\"date\\\":\\\"`date +'%s'`\\\"}}}}}\""
-                sh "oc rollout status deployment server -n product-catalog-dev"
+                //sh "oc patch deployment server -n product-catalog-dev -p \"{\\\"spec\\\":{\\\"template\\\":{\\\"metadata\\\":{\\\"labels\\\":{\\\"date\\\":\\\"`date +'%s'`\\\"}}}}}\""
+                //sh "oc rollout status deployment server -n product-catalog-dev"
+                script {
+                  openshift.withCluster() {
+                    openshift.withProject('product-catalog-dev') {
+                      def dc = openshift.selector("dc", "server")
+                      dc.rollout().latest();
+                      dc.rollout().status();
+                    }
+                  }
+                }
             }
         }
 
@@ -48,8 +57,17 @@ pipeline {
                         }
                     }
                 }
-                sh "oc patch deployment server -n product-catalog-test -p \"{\\\"spec\\\":{\\\"template\\\":{\\\"metadata\\\":{\\\"labels\\\":{\\\"date\\\":\\\"`date +'%s'`\\\"}}}}}\""
-                sh "oc rollout status deployment server -n product-catalog-test"
+                // sh "oc patch deployment server -n product-catalog-test -p \"{\\\"spec\\\":{\\\"template\\\":{\\\"metadata\\\":{\\\"labels\\\":{\\\"date\\\":\\\"`date +'%s'`\\\"}}}}}\""
+                // sh "oc rollout status deployment server -n product-catalog-test"
+                script {
+                  openshift.withCluster() {
+                    openshift.withProject('product-catalog-dev') {
+                      def dc = openshift.selector("dc", "server")
+                      dc.rollout().latest();
+                      dc.rollout().status();
+                    }
+                  }
+                }
             }
         }
     }
