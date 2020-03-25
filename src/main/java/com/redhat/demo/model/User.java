@@ -1,13 +1,12 @@
 package com.redhat.demo.model;
 
-// import static org.wildfly.security.password.interfaces.BCryptPassword.ALGORITHM_BCRYPT;
-// import static org.wildfly.security.password.interfaces.BCryptPassword.BCRYPT_SALT_SIZE;
+import static org.wildfly.security.password.interfaces.BCryptPassword.ALGORITHM_BCRYPT;
+import static org.wildfly.security.password.interfaces.BCryptPassword.BCRYPT_SALT_SIZE;
 
-// import java.io.UnsupportedEncodingException;
-// import java.security.NoSuchAlgorithmException;
-// import java.security.spec.InvalidKeySpecException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.time.LocalDateTime;
-// import java.util.Base64;
+import java.util.Base64;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.json.bind.Jsonb;
@@ -21,10 +20,10 @@ import javax.persistence.Table;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-// import org.wildfly.security.password.PasswordFactory;
-// import org.wildfly.security.password.interfaces.BCryptPassword;
-// import org.wildfly.security.password.spec.EncryptablePasswordSpec;
-// import org.wildfly.security.password.spec.IteratedSaltedPasswordAlgorithmSpec;
+import org.wildfly.security.password.PasswordFactory;
+import org.wildfly.security.password.interfaces.BCryptPassword;
+import org.wildfly.security.password.spec.EncryptablePasswordSpec;
+import org.wildfly.security.password.spec.IteratedSaltedPasswordAlgorithmSpec;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
@@ -67,7 +66,7 @@ public class User extends PanacheEntityBase {
         this.createdAt = createdAt;
     }
 
-    /**
+
     public void setPasswordHash(String password) {
         byte[] salt = generateRandomSalt(BCRYPT_SALT_SIZE);
         int iterationCount = 10;
@@ -87,7 +86,6 @@ public class User extends PanacheEntityBase {
             throw new RuntimeException("Password encryption failed, no such algorithm", e);
         }
     }
-    **/
 
     private static byte[] generateRandomSalt(int saltSize) {
         byte[] randomSalt = new byte[saltSize];

@@ -84,6 +84,12 @@
       <artifactId>quarkus-smallrye-openapi</artifactId>
       <version>${quarkus.version}</version>
     </dependency>
+    <!-- Needed for password generation -->
+    <dependency>
+      <groupId>org.wildfly.security</groupId>
+      <artifactId>wildfly-elytron-credential</artifactId>
+      <version>1.10.3.Final</version>
+    </dependency>
   </dependencies>
   <build>
     <plugins>

@@ -81,10 +81,9 @@ public class AuthResource {
                          @FormParam("password") String password,
                          @FormParam("password_confirmation") String passwordConfirmation) {
 
-        return Response.status(Response.Status.OK).entity("User registration is not supported at this time").build();
+        //return Response.status(Response.Status.OK).entity("User registration is not supported at this time").build();
 
         // Can't compile wildfly code needed to generate passwords with quarkus native compiler
-        /*
         if (password == null || password.isEmpty()) {
             throw new WebApplicationException("Password must be provided");
         }
@@ -104,8 +103,6 @@ public class AuthResource {
             e.printStackTrace();
             throw new WebApplicationException("User could not be saved", 500);
         }
-        */
-
     }
 
     @Provider
