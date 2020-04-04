@@ -56,8 +56,8 @@ public class User extends PanacheEntityBase {
 
     }
 
-    public User(Integer id, String email, String passwordHash, String salt, Integer iterations,
-            LocalDateTime createdAt) {
+    public User(final Integer id, final String email, final String passwordHash, final String salt,
+            final Integer iterations, final LocalDateTime createdAt) {
         this.id = id;
         this.email = email;
         this.passwordHash = passwordHash;
@@ -66,36 +66,34 @@ public class User extends PanacheEntityBase {
         this.createdAt = createdAt;
     }
 
-
-    public void setPasswordHash(String password) {
-        byte[] salt = generateRandomSalt(BCRYPT_SALT_SIZE);
-        int iterationCount = 10;
+    public void setPasswordHash(final String password) {
+        final byte[] salt = generateRandomSalt(BCRYPT_SALT_SIZE);
+        final int iterationCount = 10;
 
         try {
-            PasswordFactory factory = PasswordFactory.getInstance(ALGORITHM_BCRYPT);
-            BCryptPassword bCryptPassword = (BCryptPassword) factory.generatePassword(
-                    new EncryptablePasswordSpec(password.toCharArray(), new IteratedSaltedPasswordAlgorithmSpec(iterationCount, salt))
-            );
+            final PasswordFactory factory = PasswordFactory.getInstance(ALGORITHM_BCRYPT);
+            final BCryptPassword bCryptPassword = (BCryptPassword) factory.generatePassword(new EncryptablePasswordSpec(
+                    password.toCharArray(), new IteratedSaltedPasswordAlgorithmSpec(iterationCount, salt)));
             this.passwordHash = Base64.getEncoder().encodeToString(bCryptPassword.getHash());
             this.salt = Base64.getEncoder().encodeToString(bCryptPassword.getSalt());
             this.iterations = bCryptPassword.getIterationCount();
-            log.info("hash: " + this.passwordHash + ", salt:" + this.salt + ", iterations:" + this.iterations );
-        } catch (InvalidKeySpecException e) {
+            log.info("hash: " + this.passwordHash + ", salt:" + this.salt + ", iterations:" + this.iterations);
+        } catch (final InvalidKeySpecException e) {
             throw new RuntimeException("Password encryption failed, invalid key spec", e);
-        } catch (NoSuchAlgorithmException e) {
+        } catch (final NoSuchAlgorithmException e) {
             throw new RuntimeException("Password encryption failed, no such algorithm", e);
         }
     }
 
-    private static byte[] generateRandomSalt(int saltSize) {
-        byte[] randomSalt = new byte[saltSize];
+    private static byte[] generateRandomSalt(final int saltSize) {
+        final byte[] randomSalt = new byte[saltSize];
         ThreadLocalRandom.current().nextBytes(randomSalt);
         return randomSalt;
     }
 
     @Override
     public String toString() {
-        Jsonb jsonb = JsonbBuilder.create();
+        final Jsonb jsonb = JsonbBuilder.create();
         try {
             return jsonb.toJson(this);
         } finally {
