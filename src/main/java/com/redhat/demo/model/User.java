@@ -93,11 +93,10 @@ public class User extends PanacheEntityBase {
 
     @Override
     public String toString() {
-        final Jsonb jsonb = JsonbBuilder.create();
-        try {
+        try (Jsonb jsonb = JsonbBuilder.create()) {
             return jsonb.toJson(this);
-        } finally {
-            jsonb.close();
+        } catch (Exception e) {
+            throw new RuntimeException("Occurred creating json", e);
         }
     }
 }
