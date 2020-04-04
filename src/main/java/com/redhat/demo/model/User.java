@@ -96,6 +96,10 @@ public class User extends PanacheEntityBase {
     @Override
     public String toString() {
         Jsonb jsonb = JsonbBuilder.create();
-        return jsonb.toJson(this);
+        try {
+            return jsonb.toJson(this);
+        } finally {
+            jsonb.close();
+        }
     }
 }

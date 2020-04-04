@@ -68,7 +68,7 @@ public class ProductResource {
         PanacheQuery<Product> query;
 
         if (name != null && !name.isEmpty()) {
-            query = Product.find("name LIKE :name", Sort.by(orderBy).direction(orderType=="asc"? Direction.Ascending: Direction.Descending), Parameters.with("name", "%"+name+"%"));
+            query = Product.find("name LIKE :name", Sort.by(orderBy).direction("asc".equals(orderType)? Direction.Ascending: Direction.Descending), Parameters.with("name", "%"+name+"%"));
         } else {
             query = Product.find("order by " + orderBy + " " + orderType);
         }
