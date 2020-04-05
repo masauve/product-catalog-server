@@ -178,12 +178,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/auth",
-					"protocol": "http",
+					"raw": "{{scheme}}://{{host}}/api/auth",
+					"protocol": "{{scheme}}",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"auth"
