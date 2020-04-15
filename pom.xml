@@ -215,7 +215,7 @@
                       <type>${project.packaging}</type>
                     </artifactItem>
                   </artifactItems>
-                  <outputDirectory>$(binary.output.path)</outputDirectory>
+                  <outputDirectory>${binary.output.path}</outputDirectory>
                 </configuration>
               </execution>
             </executions>
