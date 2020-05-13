@@ -196,31 +196,32 @@
 			<build>
 				<plugins>
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-dependency-plugin</artifactId>
-            <version>3.1.2</version>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>3.0.2</version>
             <executions>
               <execution>
-                <id>copy-installed</id>
-                <phase>install</phase>
-                <goals>
-                  <goal>copy</goal>
-                </goals>
-                <configuration>
-                  <artifactItems>
-                    <artifactItem>
-                      <groupId>${project.groupId}</groupId>
-                      <artifactId>${project.artifactId}</artifactId>
-                      <version>${project.version}</version>
-                      <type>${project.packaging}</type>
-                    </artifactItem>
-                  </artifactItems>
-                  <outputDirectory>${binary.output.path}</outputDirectory>
-                </configuration>
+              <id>copy-resources</id>
+              <!-- insert here the phase you need -->
+              <phase>install</phase>
+              <goals>
+                <goal>copy-resources</goal>
+              </goals>
+              <configuration>
+                <outputDirectory>${binary.output.path}</outputDirectory>
+                <overwrite>true</overwrite>
+                <resources>
+                  <resource>
+                    <directory>target</directory>
+                    <includes>
+                      <include>*-runner.jar</include>
+                    </includes>
+                  </resource>
+                </resources>
+              </configuration>
               </execution>
             </executions>
           </plugin>
-				</plugins>
+        </plugins>
 			</build>
     </profile>
 		<profile>
