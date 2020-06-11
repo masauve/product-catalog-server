@@ -84,6 +84,10 @@
       <artifactId>quarkus-smallrye-openapi</artifactId>
       <version>${quarkus.version}</version>
     </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-kubernetes-config</artifactId>
+    </dependency>
     <!-- Needed for password generation -->
     <dependency>
       <groupId>org.wildfly.security</groupId>
