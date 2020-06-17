@@ -44,8 +44,8 @@ public class CategoryResource {
     @Path("{id}")
     @PermitAll
     @Operation(summary = "Get category", description = "Get specific category by ID")
-    @Counted(name = "countGetCategorybyId", description = "How many get category by ID calls have been performed.", tags = {"type=counter", "api=category"})
-    @Timed(name = "perfGetCategoryById", description = "A measure of how long it takes to get category by ID.", unit = MetricUnits.MILLISECONDS, tags = {"type=perf", "api=category"})
+    @Counted(name = "countGetCategorybyId", description = "How many get category by ID calls have been performed.", tags = {"type=counter", "api=category", "method=getCategoryById"})
+    @Timed(name = "perfGetCategoryById", description = "A measure of how long it takes to get category by ID.", unit = MetricUnits.MILLISECONDS, tags = {"type=perf", "api=category", "method=getCategoryById"})
     public Category getCategory(@PathParam("id") Integer id) {
         Category category = Category.findById(id);
         if (category == null) {
@@ -57,8 +57,8 @@ public class CategoryResource {
     @POST
     @Authenticated
     @Operation(summary = "Create category", description = "Create a new category")
-    @Counted(name = "countCreateCategory", description = "How many create category calls have been performed.", tags = {"type=counter", "api=category"})
-    @Timed(name = "perfCreateCategory", description = "A measure of how long it takes to create a category.", unit = MetricUnits.MILLISECONDS, tags = {"type=perf", "api=category"})
+    @Counted(name = "countCreateCategory", description = "How many create category calls have been performed.", tags = {"type=counter", "api=category", "method=createCategory"})
+    @Timed(name = "perfCreateCategory", description = "A measure of how long it takes to create a category.", unit = MetricUnits.MILLISECONDS, tags = {"type=perf", "api=category", "method=createCategory"})
     public Response create(Category category) {
         try {
             category.persist();
@@ -72,8 +72,8 @@ public class CategoryResource {
     @Path("{id}")
     @Authenticated
     @Operation(summary = "Update category", description = "Update an existing category")
-    @Counted(name = "countUpdateCategory", description = "How many update category calls have been performed.", tags = {"type=counter", "api=category"})
-    @Timed(name = "perfUpdateCategory", description = "A measure of how long it takes to update a category.", unit = MetricUnits.MILLISECONDS, tags = {"type=perf", "api=category"})
+    @Counted(name = "countUpdateCategory", description = "How many update category calls have been performed.", tags = {"type=counter", "api=category", "method=updateCategory"})
+    @Timed(name = "perfUpdateCategory", description = "A measure of how long it takes to update a category.", unit = MetricUnits.MILLISECONDS, tags = {"type=perf", "api=category", "method=updateCategory"})
     public Category update(@PathParam Integer id, Category category) {
         if (category.name == null) {
             throw new WebApplicationException("Category Name was not set on request.", 422);
@@ -89,8 +89,8 @@ public class CategoryResource {
     @Path("{id}")
     @Authenticated
     @Operation(summary = "Delete category", description = "Delete a category")
-    @Counted(name = "countDeleteCategory", description = "How many delete category calls have been performed.", tags = {"type=counter", "api=category"})
-    @Timed(name = "perfDeleteCategory", description = "A measure of how long it takes to delete a category.", unit = MetricUnits.MILLISECONDS, tags = {"type=perf", "api=category"})
+    @Counted(name = "countDeleteCategory", description = "How many delete category calls have been performed.", tags = {"type=counter", "api=category", "method=deleteCategory"})
+    @Timed(name = "perfDeleteCategory", description = "A measure of how long it takes to delete a category.", unit = MetricUnits.MILLISECONDS, tags = {"type=perf", "api=category", "method=deleteCategory"})
     public Response delete(@PathParam Integer id) {
         Category category = Category.findById(id);
         if (category != null) {
