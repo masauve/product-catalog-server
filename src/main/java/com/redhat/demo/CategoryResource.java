@@ -36,6 +36,8 @@ public class CategoryResource {
 
     @GET
     @PermitAll
+    @Counted(name = "countGetCategory", description = "How many get categories calls have been performed.", tags = {"type=counter", "api=category", "method=getCategory"})
+    @Timed(name = "perfGetCategory", description = "A measure of how long it takes to get categories.", unit = MetricUnits.MILLISECONDS, tags = {"type=perf", "api=category", "method=getCategory"})
     public Category[] get() {
         return Category.listAll().toArray(new Category[0]);
     }
