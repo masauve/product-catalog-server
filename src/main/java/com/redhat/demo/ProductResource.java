@@ -56,7 +56,7 @@ public class ProductResource {
 
     @GET
     @Operation(summary = "Get product list", description = "Get product list with support for paging and ordering")
-    @Counted(name = "countGetProduct", description = "How many get product calls have been performed.")
+    @Counted(name = "countGetProduct", description = "How many get product calls have been performed.", tags = {"type=counter"} )
     @Timed(name = "perfGetProduct", description = "A measure of how long it takes to get products.", unit = MetricUnits.MILLISECONDS)
     public Product[] get(
         @QueryParam("name") @DefaultValue("") String name,
@@ -86,8 +86,8 @@ public class ProductResource {
     @GET
     @Path("{id}")
     @Operation(summary = "Get product by ID", description = "Get specific product by it's ID")
-    @Counted(name = "countGetProductbyId", description = "How many get product by ID calls have been performed.")
-    @Timed(name = "perfGetProductById", description = "A measure of how long it takes to get product by ID.", unit = MetricUnits.MILLISECONDS)
+    @Counted(name = "countGetProductbyId", description = "How many get product by ID calls have been performed.", tags = {"type=counter", "api=product"})
+    @Timed(name = "perfGetProductById", description = "A measure of how long it takes to get product by ID.", unit = MetricUnits.MILLISECONDS, tags = {"type=perf", "api=product"})
     public Product get(@PathParam("id") Integer id) {
         Product product = Product.findById(id);
         if (product == null) {
@@ -100,8 +100,8 @@ public class ProductResource {
     @Path("/count")
     @Produces(MediaType.TEXT_PLAIN)
     @Operation(summary = "Get product count", description = "Get the total count of products available")
-    @Counted(name = "countGetCount", description = "How many get product count calls have been performed.")
-    @Timed(name = "perfGetCount", description = "A measure of how long it takes to get product count.", unit = MetricUnits.MILLISECONDS)
+    @Counted(name = "countGetCount", description = "How many get product count calls have been performed.", tags = {"type=counter"})
+    @Timed(name = "perfGetCount", description = "A measure of how long it takes to get product count.", unit = MetricUnits.MILLISECONDS, tags = {"type=perf", "api=product"})
     public Response getCount() {
         Long count = Product.count();
         return Response.status(Response.Status.OK).entity(Long.toString(count)).build();
@@ -113,8 +113,8 @@ public class ProductResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     @Operation(summary = "Create product", description = "Create a new product")
-    @Counted(name = "countCreateProduct", description = "How many get product create calls have been performed.")
-    @Timed(name = "perfCreateProduct", description = "A measure of how long it takes to create a product.", unit = MetricUnits.MILLISECONDS)
+    @Counted(name = "countCreateProduct", description = "How many get product create calls have been performed.", tags = {"type=counter", "api=product"})
+    @Timed(name = "perfCreateProduct", description = "A measure of how long it takes to create a product.", unit = MetricUnits.MILLISECONDS, tags = {"type=perf", "api=product"})
     public ProductResult create(
         @FormParam("name") String name,
         @FormParam("description") String description,
@@ -153,8 +153,8 @@ public class ProductResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Transactional
     @Operation(summary = "Delete a set of products", description = "Delete a set of products as specified by their IDs")
-    @Counted(name = "countMassDelete", description = "How many get mass product delete calls have been performed.")
-    @Timed(name = "perfMassDelete", description = "A measure of how long it takes to mass delete products.", unit = MetricUnits.MILLISECONDS)
+    @Counted(name = "countMassDelete", description = "How many get mass product delete calls have been performed.", tags = {"type=counter", "api=product"})
+    @Timed(name = "perfMassDelete", description = "A measure of how long it takes to mass delete products.", unit = MetricUnits.MILLISECONDS, tags = {"type=perf", "api=product"})
     public Response massDelete(@FormParam("del_ids[]") List<Integer> productIds) {
         System.out.println(productIds.size());
         try {
@@ -175,8 +175,8 @@ public class ProductResource {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
     @Operation(summary = "Update product", description = "Update an existing product")
-    @Counted(name = "countUpdateProduct", description = "How many update product calls have been performed.")
-    @Timed(name = "perfUpdateProduct", description = "A measure of how long it takes to update product.", unit = MetricUnits.MILLISECONDS)
+    @Counted(name = "countUpdateProduct", description = "How many update product calls have been performed.", tags = {"type=counter", "api=product"})
+    @Timed(name = "perfUpdateProduct", description = "A measure of how long it takes to update product.", unit = MetricUnits.MILLISECONDS, tags = {"type=perf", "api=product"})
     public ProductResult update(
         @PathParam("id") Integer id,
         @FormParam("id") Integer formId,
@@ -215,8 +215,8 @@ public class ProductResource {
     @Path("{id}")
     @Authenticated
     @Operation(summary = "Delete product", description = "Delete a single product by ID")
-    @Counted(name = "countDeleteProduct", description = "How many delete a product calls have been performed.")
-    @Timed(name = "perfDeleteProduct", description = "A measure of how long it takes to delete a product.", unit = MetricUnits.MILLISECONDS)
+    @Counted(name = "countDeleteProduct", description = "How many delete a product calls have been performed.", tags = {"type=counter", "api=product"})
+    @Timed(name = "perfDeleteProduct", description = "A measure of how long it takes to delete a product.", unit = MetricUnits.MILLISECONDS, tags = {"type=perf", "api=product"})
     public Response delete(@PathParam Integer id) {
         Product product = Product.findById(id);
         if (product != null) {
