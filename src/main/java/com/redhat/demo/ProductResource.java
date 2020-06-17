@@ -57,7 +57,7 @@ public class ProductResource {
     @GET
     @Operation(summary = "Get product list", description = "Get product list with support for paging and ordering")
     @Counted(name = "countGetProduct", description = "How many get product calls have been performed.", tags = {"type=counter","api=product", "method=getProduct"} )
-    @Timed(name = "perfGetProduct", description = "A measure of how long it takes to get products.", unit = MetricUnits.MILLISECONDS, tags = {"type=counter","api=product", "method=getProduct"})
+    @Timed(name = "perfGetProduct", description = "A measure of how long it takes to get products.", unit = MetricUnits.MILLISECONDS, tags = {"type=perf","api=product", "method=getProduct"})
     public Product[] get(
         @QueryParam("name") @DefaultValue("") String name,
         @QueryParam("order_by") @DefaultValue("name") String orderBy,
